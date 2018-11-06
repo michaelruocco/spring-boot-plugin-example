@@ -1,0 +1,72 @@
+plugins {
+    id 'com.github.ben-manes.versions' version '0.20.0'
+    id 'com.github.kt3k.coveralls' version '2.8.2'
+}
+
+allprojects {
+    apply plugin: 'jacoco'
+    apply plugin: 'com.github.kt3k.coveralls'
+
+    repositories {
+        mavenCentral()
+    }
+
+    jacoco {
+        toolVersion = '0.8.2'
+    }
+}
+
+subprojects {
+    group 'com.github.michaelruocco'
+    version '1.0.0'
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+
+    dependencies {
+        compile 'org.projectlombok:lombok:1.18.2'
+
+        testCompile 'junit:junit:4.12'
+        testCompile 'org.assertj:assertj-core:3.11.1'
+        testCompile 'org.mockito:mockito-core:2.22.0'
+    }
+
+    jacocoTestReport {
+        additionalSourceDirs = files(sourceSets.main.allSource.srcDirs)
+        sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+        classDirectories =  files(sourceSets.main.output)
+
+        reports {
+            xml.enabled = true
+            html.enabled = true
+        }
+    }
+}
+
+task jacocoRootReport(type: JacocoReport) {
+    dependsOn = subprojects.test
+
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(subprojects.sourceSets.main.output)
+    executionData = files(subprojects.jacocoTestReport.executionData)
+
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
+
+    doFirst {
+        executionData = files(executionData.findAll { it.exists() })
+    }
+}
+
+coveralls {
+    sourceDirs = subprojects.sourceSets.main.allSource.srcDirs.flatten()
+    jacocoReportPath = "${buildDir}/reports/jacoco/jacocoRootReport/jacocoRootReport.xml"
+}
+
+tasks.coveralls {
+    dependsOn jacocoRootReport
+}

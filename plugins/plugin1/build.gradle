@@ -1,0 +1,16 @@
+dependencies {
+    compile project(':api')
+
+    compileOnly 'org.pf4j:pf4j-spring:0.5.0'
+}
+
+jar {
+    manifest {
+        attributes(
+                "id": "Plugin1",
+                "Plugin-Id": "Plugin1",
+                "Plugin-Class": "uk.co.mruoc.plugin1.Plugin1",
+                "Plugin-Version": "0.0.1"
+        )
+    }
+}
