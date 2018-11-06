@@ -1,4 +1,4 @@
-rootProject.name = 'plugin-example'
+rootProject.name = 'spring-boot-plugin-example'
 
 include 'api'
 include 'app'
