@@ -23,7 +23,7 @@ public class AliasLookupService {
 
     @Autowired
     public AliasLookupService(List<AliasLoader> aliasLoaders) {
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%***************** loading alias lookup service with " + aliasLoaders.size() + " loaders *********************%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        log.info("creating {} with {} aliasLoaders", this.getClass(), aliasLoaders.size());
         this.aliasLoaders = aliasLoaders;
     }
 
