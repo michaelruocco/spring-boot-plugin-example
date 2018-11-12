@@ -15,12 +15,14 @@ sourceSets {
 }
 
 dependencies {
-    compile project(':api')
+    compile project(':plugin-api')
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.pf4j:pf4j-spring:0.5.0'
 
-    provided project(':plugins:as3')
-    provided project(':plugins:bbos')
+    provided project(':bidv-plugin')
+
+    provided project(':external-plugins:as3')
+    provided project(':external-plugins:bbos')
 }
 
 bootJar {

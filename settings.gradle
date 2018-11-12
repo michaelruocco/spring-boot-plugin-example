@@ -1,7 +1,9 @@
 rootProject.name = 'spring-boot-plugin-example'
 
-include 'api'
+include 'plugin-api'
 include 'app'
 
-include 'plugins:as3'
-include 'plugins:bbos'
+include 'bidv-plugin'
+
+include 'external-plugins:as3'
+include 'external-plugins:bbos'

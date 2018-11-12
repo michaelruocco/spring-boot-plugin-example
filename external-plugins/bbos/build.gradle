@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':api')
+    compile project(':plugin-api')
 
     compileOnly 'org.pf4j:pf4j-spring:0.5.0'
 }
