@@ -1,11 +1,9 @@
-package uk.co.mruoc.plugin1;
+package uk.co.mruoc.as3;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.pf4j.Extension;
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
-import org.pf4j.RuntimeMode;
 import uk.co.mruoc.api.Alias;
 import uk.co.mruoc.api.AliasLoader;
 
@@ -15,24 +13,20 @@ import java.util.List;
 import static java.util.Collections.singletonList;
 
 @Slf4j
-public class Plugin1 extends Plugin {
+public class AS3AliasLoaderPlugin extends Plugin {
 
-    public Plugin1(PluginWrapper wrapper) {
+    public AS3AliasLoaderPlugin(PluginWrapper wrapper) {
         super(wrapper);
     }
 
     @Override
     public void start() {
-        log.info("Plugin1.start()");
-        // for testing the development mode
-        if (RuntimeMode.DEVELOPMENT.equals(wrapper.getRuntimeMode())) {
-            log.info("development mode {}", StringUtils.upperCase("Plugin1"));
-        }
+        log.info("AS3AliasLoaderPlugin.start()");
     }
 
     @Override
     public void stop() {
-        log.info("Plugin1.stop()");
+        log.info("AS3AliasLoaderPlugin.stop()");
     }
 
     @Extension
