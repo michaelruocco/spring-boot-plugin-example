@@ -2,12 +2,12 @@ package uk.co.mruoc.api;
 
 import org.pf4j.ExtensionPoint;
 
-import java.util.List;
+import java.util.Set;
 
-public interface AliasLoader extends ExtensionPoint {
+public interface AliasLoader extends ExtensionPoint, ChannelIdProvider {
 
-    boolean supportsLookupAlias(Alias alias);
+    Set<String> getSupportedAliasTypes();
 
-    List<Alias> loadAliases(Alias lookupAlias);
+    Set<Alias> loadAliases(final Alias lookupAlias);
 
 }

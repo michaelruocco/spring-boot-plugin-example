@@ -7,9 +7,8 @@ dependencies {
 jar {
     manifest {
         attributes(
-                "id": "Plugin2",
-                "Plugin-Id": "Plugin2",
-                "Plugin-Class": "uk.co.mruoc.plugin2.Plugin2",
+                "Plugin-Id": "BBOSPlugin",
+                "Plugin-Class": "uk.co.mruoc.bbos.BBOSAliasLoaderPlugin",
                 "Plugin-Version": "0.0.1"
         )
     }

@@ -7,7 +7,6 @@ dependencies {
 jar {
     manifest {
         attributes(
-                "id": "AS3Plugin",
                 "Plugin-Id": "AS3Plugin",
                 "Plugin-Class": "uk.co.mruoc.as3.AS3AliasLoaderPlugin",
                 "Plugin-Version": "0.0.1"

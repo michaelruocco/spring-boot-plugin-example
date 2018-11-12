@@ -1,49 +1,62 @@
-package uk.co.mruoc.plugin2;
+package uk.co.mruoc.bbos;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.pf4j.Extension;
 import org.pf4j.Plugin;
 import org.pf4j.PluginWrapper;
-import org.pf4j.RuntimeMode;
 import uk.co.mruoc.api.Alias;
 import uk.co.mruoc.api.AliasLoader;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
+
+import static java.util.Collections.singleton;
 
 @Slf4j
-public class Plugin2 extends Plugin {
+public class BBOSAliasLoaderPlugin extends Plugin {
 
-    public Plugin2(PluginWrapper wrapper) {
+    private static final String CHANNEL_ID = "BBOS";
+
+    public BBOSAliasLoaderPlugin(PluginWrapper wrapper) {
         super(wrapper);
     }
 
     @Override
     public void start() {
-        log.info("Plugin2.start()");
-        // for testing the development mode
-        if (RuntimeMode.DEVELOPMENT.equals(wrapper.getRuntimeMode())) {
-            log.info("development mode {}", StringUtils.upperCase("Plugin2"));
-        }
+        log.info("BBOSAliasLoaderPlugin.start()");
     }
 
     @Override
     public void stop() {
-        log.info("Plugin2.stop()");
+        log.info("BBOSAliasLoaderPlugin.stop()");
     }
 
     @Extension
-    public static class Plugin2AliasLoader implements AliasLoader {
+    public static class BukCustomerIdLoader implements AliasLoader {
 
         @Override
-        public boolean supportsLookupAlias(Alias alias) {
-            return true;
+        public String getChannelId() {
+            return CHANNEL_ID;
         }
 
         @Override
-        public List<Alias> loadAliases(Alias lookupAlias) {
-            return Arrays.asList(lookupAlias, new Alias("MEMBERSHIP_ID", "XYZ999"));
+        public Set<String> getSupportedAliasTypes() {
+            return singleton("UKC_CARDHOLDER_ID");
+        }
+
+        @Override
+        public Set<Alias> loadAliases(final Alias ukcCardholderId) {
+            log.info("loading aliases using alias {}", ukcCardholderId);
+            final Alias bukCustomerId = toBukCustomerId(ukcCardholderId);
+            return singleton(bukCustomerId);
+        }
+
+        private static Alias toBukCustomerId(final Alias ukcCardholderId) {
+            final String bukCustomerId = toBukCustomerId(ukcCardholderId.getValue());
+            return new Alias("BUK_CUSTOMER_ID", bukCustomerId);
+        }
+
+        private static String toBukCustomerId(final String ukcCardholderId) {
+            return new StringBuilder(ukcCardholderId).reverse().toString();
         }
 
     }
