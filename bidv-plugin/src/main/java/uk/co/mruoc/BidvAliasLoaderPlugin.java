@@ -15,6 +15,7 @@ public class BidvAliasLoaderPlugin extends SpringPlugin {
 
     @Override
     public void start() {
+        System.out.println("START BIDV LOADER PLUGIN");
         log.info("BidvAliasLoaderPlugin.start()");
     }
 
@@ -25,6 +26,8 @@ public class BidvAliasLoaderPlugin extends SpringPlugin {
 
     @Override
     protected ApplicationContext createApplicationContext() {
+        System.out.println("CREATING APPLICATION CONTEXT");
+        log.info("CREATING APPLICATION CONTEXT");
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.setClassLoader(getWrapper().getPluginClassLoader());
         applicationContext.register(SpringConfiguration.class);
