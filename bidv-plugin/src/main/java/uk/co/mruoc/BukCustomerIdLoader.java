@@ -2,6 +2,7 @@ package uk.co.mruoc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.pf4j.Extension;
+import org.springframework.beans.factory.annotation.Autowired;
 import uk.co.mruoc.api.Alias;
 import uk.co.mruoc.api.AliasLoader;
 import uk.co.mruoc.api.AliasLoaderException;
@@ -15,11 +16,13 @@ import java.util.Set;
 import static java.util.Collections.singleton;
 
 @Slf4j
-@Extension
+@Extension(ordinal = 1)
 public class BukCustomerIdLoader implements AliasLoader {
 
-    private final ChannelIdProvider channelIdProvider = new BidvChannelIdProvider();
     private final Map<String, String> mappings = buildMappings();
+
+    @Autowired
+    private ChannelIdProvider channelIdProvider;
 
     @Override
     public String getChannelId() {
