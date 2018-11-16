@@ -3,7 +3,7 @@ rootProject.name = 'spring-boot-plugin-example'
 include 'plugin-api'
 include 'app'
 
-include 'bidv-plugin'
+include 'internal-plugin'
 
 include 'external-plugins:as3'
 include 'external-plugins:bbos'

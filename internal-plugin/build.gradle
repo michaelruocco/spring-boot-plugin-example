@@ -7,8 +7,8 @@ dependencies {
 jar {
     manifest {
         attributes(
-                "Plugin-Id": "AS3Plugin",
-                "Plugin-Class": "uk.co.mruoc.plugin.as3.AS3AliasLoaderPlugin",
+                "Plugin-Id": "BidvPlugin",
+                "Plugin-Class": "uk.co.mruoc.plugin.bidv.BidvAliasLoaderPlugin",
                 "Plugin-Version": "0.0.1"
         )
     }

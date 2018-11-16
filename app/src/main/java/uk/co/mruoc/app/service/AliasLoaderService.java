@@ -3,8 +3,8 @@ package uk.co.mruoc.app.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uk.co.mruoc.api.Alias;
-import uk.co.mruoc.api.AliasLoader;
+import uk.co.mruoc.plugin.api.Alias;
+import uk.co.mruoc.plugin.api.AliasLoader;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -5,7 +5,7 @@ import org.pf4j.spring.SpringPluginManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import uk.co.mruoc.api.AliasLoader;
+import uk.co.mruoc.plugin.api.AliasLoader;
 
 import java.util.List;
 

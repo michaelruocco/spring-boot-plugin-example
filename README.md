@@ -8,7 +8,7 @@
 Example calls
 
 ```
-curl -X POST -H "channel-id:BIDV_DEMO" -H "content-type:application/json" http://localhost:8080/aliases -d '{ "type": "UKC_CARDHOLDER_ID", "value": "12345678" }'
+curl -X POST -H "channel-id:BIDV" -H "content-type:application/json" http://localhost:8080/aliases -d '{ "type": "UKC_CARDHOLDER_ID", "value": "12345678" }'
 curl -X POST -H "channel-id:AS3" -H "content-type:application/json" http://localhost:8080/aliases -d '{ "type": "UKC_CARDHOLDER_ID", "value": "12345678" }'
 curl -X POST -H "channel-id:BBOS" -H "content-type:application/json" http://localhost:8080/aliases -d '{ "type": "UKC_CARDHOLDER_ID", "value": "12345678" }'
 ```

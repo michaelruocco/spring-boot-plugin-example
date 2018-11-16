@@ -3,9 +3,9 @@ package uk.co.mruoc.app.web;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import uk.co.mruoc.api.AliasLoaderException;
-import uk.co.mruoc.app.api.ErrorData;
-import uk.co.mruoc.app.api.ErrorDocument;
+import uk.co.mruoc.plugin.api.AliasLoaderException;
+import uk.co.mruoc.api.ErrorData;
+import uk.co.mruoc.api.ErrorDocument;
 
 import java.util.UUID;
 
