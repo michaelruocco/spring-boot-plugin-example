@@ -8,13 +8,28 @@
 ## Starting the service locally
 
 ```
-make run
+make -B run
+```
+
+If you want to specify which environment config is used or which plugins to configure
+that can also be specified, by default local environment will be used with all
+three plugins (bidv,as3,bbos) to change this you can specify arguments to the make task.
+
+```
+make -B run env=dev plugins=as3,bbos
 ```
 
 ## Starting the service locally using docker
 
 ```
-make runDocker
+make -B dockerRun
+```
+
+The same environment and plugin overrides can be applied to the runDocker task as the
+run examples shown previously.
+
+```
+make -B dockerRun run env=dev plugins=as3,bbos
 ```
 
 ## Example calls

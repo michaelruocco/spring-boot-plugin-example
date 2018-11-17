@@ -43,7 +43,7 @@ public class AliasLoaderService {
 
     private Set<Alias> loadAliasesByKey(final String key, final Alias alias) {
         if (!aliasLoaders.containsKey(key)) {
-            log.info("no alias loaders found using key", key);
+            log.info("no alias loaders found using key {}", key);
             return emptySet();
         }
 
