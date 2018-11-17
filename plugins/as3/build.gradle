@@ -1,0 +1,17 @@
+dependencies {
+    compile project(':plugin-api')
+
+    compileOnly 'org.pf4j:pf4j-spring:0.5.0'
+}
+
+jar {
+    manifest {
+        attributes(
+                "Plugin-Id": "AS3Plugin",
+                "Plugin-Class": "uk.co.mruoc.plugin.as3.AS3AliasLoaderPlugin",
+                "Plugin-Version": "0.0.1",
+                "Class-Path": "../plugin-config/as3-config.zip"
+        )
+    }
+
+}

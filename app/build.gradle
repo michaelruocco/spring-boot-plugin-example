@@ -6,28 +6,20 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 configurations {
-    provided
     compile.exclude module: 'spring-boot-starter-logging'
-}
-
-sourceSets {
-    main.compileClasspath += configurations.provided
 }
 
 dependencies {
     compile project(':plugin-api')
+
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.pf4j:pf4j-spring:0.5.0'
 }
 
 bootJar {
     version = project.version
-    manifest {
-        attributes("Class-Path": "plugins/*")
-    }
 }
 
 bootRun {
-    classpath += configurations.provided
-    jvmArgs = [ "-Dpf4j.pluginsDir=${rootDir}/internal-plugin/build/libs" ]
+    jvmArgs = [ "-Dpf4j.pluginsDir=${rootDir}/build/plugins" ]
 }
