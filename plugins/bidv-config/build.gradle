@@ -1,0 +1,22 @@
+def localArchive = buildZip('local')
+def devArchive = buildZip('dev')
+
+def buildZip(environment) {
+    return tasks.create(environment, Zip) {
+        from environment
+        classifier = environment
+    }
+}
+
+artifacts {
+    archives localArchive, devArchive
+}
+
+publishing {
+    publications {
+        dev(MavenPublication) {
+            artifactId 'bidv-config'
+            artifact devArchive
+        }
+    }
+}

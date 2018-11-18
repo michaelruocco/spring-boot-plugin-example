@@ -9,7 +9,8 @@ jar {
         attributes(
                 "Plugin-Id": "BidvPlugin",
                 "Plugin-Class": "uk.co.mruoc.plugin.bidv.BidvAliasLoaderPlugin",
-                "Plugin-Version": "0.0.1"
+                "Plugin-Version": "0.0.1",
+                "Class-Path": "../plugin-config/bidv-config.zip"
         )
     }
 }

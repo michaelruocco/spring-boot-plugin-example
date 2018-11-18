@@ -21,6 +21,9 @@ public class TcvPartyIdLoader implements AliasLoader {
     @Autowired
     private AS3ChannelIdProvider channelIdProvider;
 
+    @Autowired
+    private TcvClientConfig tcvConfig;
+
     @Override
     public List<String> getChannelIds() {
         return channelIdProvider.getChannelId();
@@ -33,6 +36,7 @@ public class TcvPartyIdLoader implements AliasLoader {
 
     @Override
     public Set<Alias> loadAliases(final Alias ukcCardholderId) {
+        logTcvConfig();
         log.info("loading aliases using alias {}", ukcCardholderId);
         final Alias tcvPartyId = toTcvPartyId(ukcCardholderId);
         return singleton(tcvPartyId);
@@ -48,6 +52,12 @@ public class TcvPartyIdLoader implements AliasLoader {
             return ukcCardholderId.substring(0, 6);
         }
         return StringUtils.rightPad(ukcCardholderId, 6, '9');
+    }
+
+    private void logTcvConfig() {
+        log.info("tcv username {}", tcvConfig.getUsername());
+        log.info("tcv password {}", tcvConfig.getPassword());
+        log.info("tcv url {}", tcvConfig.getUrl());
     }
 
 }

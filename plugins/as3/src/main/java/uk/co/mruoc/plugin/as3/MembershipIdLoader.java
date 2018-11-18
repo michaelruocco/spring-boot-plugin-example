@@ -23,7 +23,7 @@ public class MembershipIdLoader implements AliasLoader {
     private AS3ChannelIdProvider channelIdProvider;
 
     @Autowired
-    private TestProperties testProperties;
+    private OdsClientConfig odsConfig;
 
     @Override
     public List<String> getChannelIds() {
@@ -40,8 +40,8 @@ public class MembershipIdLoader implements AliasLoader {
 
     @Override
     public Set<Alias> loadAliases(final Alias bukCustomerId) {
+        logOdsConfig();
         log.info("loading aliases using alias {}", bukCustomerId);
-        log.info("test properties {}", testProperties);
         final Alias membershipId = toMembershipId(bukCustomerId);
         return singleton(membershipId);
     }
@@ -53,6 +53,12 @@ public class MembershipIdLoader implements AliasLoader {
 
     private static String toMembershipId(final String bukCustomerId) {
         return new StringBuilder(bukCustomerId).reverse().toString();
+    }
+
+    private void logOdsConfig() {
+        log.info("ods username {}", odsConfig.getUsername());
+        log.info("ods password {}", odsConfig.getPassword());
+        log.info("ods url {}", odsConfig.getUrl());
     }
 
 }

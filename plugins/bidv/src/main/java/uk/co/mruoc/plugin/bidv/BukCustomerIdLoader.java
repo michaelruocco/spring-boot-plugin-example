@@ -24,8 +24,8 @@ public class BukCustomerIdLoader implements AliasLoader {
 
     private final Map<String, String> mappings = buildMappings();
 
-    @Value("${property1}")
-    private String property1;
+    @Value("${environment}")
+    private String environment;
 
     @Autowired
     private BidvChannelIdProvider channelIdProvider;
@@ -42,7 +42,7 @@ public class BukCustomerIdLoader implements AliasLoader {
 
     @Override
     public Set<Alias> loadAliases(final Alias ukcCardholderId) {
-        log.info("property1 [{}]", property1);
+        log.info("environment {}", environment);
         log.info("loading aliases using alias {}", ukcCardholderId);
         final Alias bukCustomerId = toBukCustomerId(ukcCardholderId);
         return singleton(bukCustomerId);

@@ -15,11 +15,6 @@ public class BidvAliasLoaderPlugin extends AbstractBidvPlugin {
     }
 
     @Override
-    public ClassLoader getClassLoader() {
-        return BidvAliasLoaderPlugin.class.getClassLoader();
-    }
-
-    @Override
     public String getName() {
         return "BidvAliasLoaderPlugin";
     }
@@ -27,11 +22,6 @@ public class BidvAliasLoaderPlugin extends AbstractBidvPlugin {
     @Override
     public List<String> getComponentScanPackages() {
         return Collections.singletonList("uk.co.mruoc.plugin.bidv");
-    }
-
-    @Override
-    public List<String> getPropertyPaths() {
-        return Collections.singletonList("bidv-plugin.properties");
     }
 
 }

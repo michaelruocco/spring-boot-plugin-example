@@ -1,9 +1,7 @@
 # Todo
 
-1. Don't pass channel id from controller, pull from current request to reduce arguments passed around
-2. Don't return plugin api type alias on API - plugin types need to be decoupled from front end API types
-3. Change endpoints to show environment properties more obviously than just in logging
-4. Cucumber and unit tests
+1. Don't return plugin api type alias on API - plugin types need to be decoupled from front end API types
+2. Cucumber and unit tests
 
 ## Starting the service locally
 
