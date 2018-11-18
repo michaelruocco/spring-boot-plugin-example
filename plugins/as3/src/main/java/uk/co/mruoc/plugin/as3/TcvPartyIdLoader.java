@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import uk.co.mruoc.plugin.api.Alias;
 import uk.co.mruoc.plugin.api.AliasLoader;
 
+import java.util.List;
 import java.util.Set;
 
 import static java.util.Collections.singleton;
@@ -21,7 +22,7 @@ public class TcvPartyIdLoader implements AliasLoader {
     private AS3ChannelIdProvider channelIdProvider;
 
     @Override
-    public String getChannelId() {
+    public List<String> getChannelIds() {
         return channelIdProvider.getChannelId();
     }
 

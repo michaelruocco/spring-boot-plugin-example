@@ -8,6 +8,7 @@ import uk.co.mruoc.plugin.api.Alias;
 import uk.co.mruoc.plugin.api.AliasLoader;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static java.util.Collections.singleton;
@@ -25,7 +26,7 @@ public class MembershipIdLoader implements AliasLoader {
     private TestProperties testProperties;
 
     @Override
-    public String getChannelId() {
+    public List<String> getChannelIds() {
         return channelIdProvider.getChannelId();
     }
 

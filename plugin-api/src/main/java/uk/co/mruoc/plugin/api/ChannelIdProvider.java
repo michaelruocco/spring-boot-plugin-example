@@ -1,7 +1,9 @@
 package uk.co.mruoc.plugin.api;
 
+import java.util.List;
+
 public interface ChannelIdProvider {
 
-    String getChannelId();
+    List<String> getChannelIds();
 
 }

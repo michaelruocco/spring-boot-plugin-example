@@ -11,6 +11,7 @@ import uk.co.mruoc.plugin.api.BidvPluginException;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class BukCustomerIdLoader implements AliasLoader {
     private BidvChannelIdProvider channelIdProvider;
 
     @Override
-    public String getChannelId() {
+    public List<String> getChannelIds() {
         return channelIdProvider.getChannelId();
     }
 

@@ -73,14 +73,15 @@ public class AliasLoaderService {
     }
 
     private void add(final AliasLoader loader) {
-        final String channelId = loader.getChannelId();
+        final List<String> channelIds = loader.getChannelIds();
         final Set<String> aliasTypes = loader.getSupportedAliasTypes();
-        log.info("got supported channel id {} and alias types {} for alias loader {}", channelId, toString(aliasTypes), loader);
-        aliasTypes.forEach(aliasType -> add(loader, aliasType));
+        for (final String channelId : channelIds) {
+            log.info("got supported channel id {} and alias types {} for alias loader {}", channelId, toString(aliasTypes), loader);
+            aliasTypes.forEach(aliasType -> add(loader, aliasType, channelId));
+        }
     }
 
-    private void add(final AliasLoader loader, final String aliasType) {
-        final String channelId = loader.getChannelId();
+    private void add(final AliasLoader loader, final String aliasType, final String channelId) {
         final String key = buildKey(channelId, aliasType);
         log.info("adding alias loader {} under key {}", loader, key);
         if (aliasLoaders.containsKey(key)) {
