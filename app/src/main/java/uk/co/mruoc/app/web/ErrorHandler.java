@@ -17,7 +17,7 @@ public class ErrorHandler {
     @ExceptionHandler(JsonApiException.class)
     public HttpResponse handle(JsonApiException exception) {
         log.error(exception.getMessage(), exception);
-        ErrorData errorData = exception.getErrorData();
+        final ErrorData errorData = exception.getErrorData();
         return HttpResponse.buildWithError(new ErrorDocument(NOT_FOUND, errorData));
     }
 

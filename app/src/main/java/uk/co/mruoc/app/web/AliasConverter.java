@@ -4,11 +4,16 @@ import org.springframework.stereotype.Component;
 import uk.co.mruoc.api.IdentityAlias;
 import uk.co.mruoc.plugin.api.Alias;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
 public class AliasConverter {
+
+    public Collection<Alias> toModelAliases(Collection<IdentityAlias> aliases) {
+        return aliases.stream().map(this::toModelAlias).collect(Collectors.toList());
+    }
 
     public Alias toModelAlias(IdentityAlias alias) {
         return Alias.builder()
@@ -17,8 +22,8 @@ public class AliasConverter {
                 .build();
     }
 
-    public Set<IdentityAlias> toApiAlias(Set<Alias> aliases) {
-        return aliases.stream().map(this::toApiAlias).collect(Collectors.toSet());
+    public Collection<IdentityAlias> toApiAlias(Collection<Alias> aliases) {
+        return aliases.stream().map(this::toApiAlias).collect(Collectors.toList());
     }
 
     public IdentityAlias toApiAlias(Alias alias) {

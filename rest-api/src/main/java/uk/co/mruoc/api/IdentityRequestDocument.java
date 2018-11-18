@@ -1,23 +1,30 @@
 package uk.co.mruoc.api;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+
+import java.util.Collection;
+import java.util.Iterator;
+
+import static java.util.Arrays.asList;
 
 @Data
 @NoArgsConstructor(force = true)
-@AllArgsConstructor
-public class IdentityRequestDocument {
+public class IdentityRequestDocument implements Iterable<IdentityData> {
 
-    private final IdentityRequestData data;
+    private final Collection<IdentityData> data;
 
-    public IdentityRequestDocument(IdentityAlias alias) {
-        this.data = new IdentityRequestData(alias);
+    public IdentityRequestDocument(IdentityData... data) {
+        this(asList(data));
     }
 
-    public IdentityAlias getAlias() {
-        return data.getAttributes().getAlias();
+    public IdentityRequestDocument(Collection<IdentityData> data) {
+        this.data = data;
+    }
+
+    @Override
+    public Iterator<IdentityData> iterator() {
+        return data.iterator();
     }
 
 }

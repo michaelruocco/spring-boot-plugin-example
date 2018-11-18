@@ -36,7 +36,13 @@ public class AliasLoaderService {
         this.errorDataBuilder = errorDataBuilder;
     }
 
-    public Set<Alias> loadAliases(final String channelId, final Alias alias) {
+    public Collection<Alias> loadAliases(final String channelId, final Collection<Alias> lookupAliases) {
+        final Set<Alias> loadedAliases = new HashSet<>();
+        lookupAliases.forEach(alias -> loadedAliases.addAll(loadAliases(channelId, alias)));
+        return unmodifiableSet(loadedAliases);
+    }
+
+    public Collection<Alias> loadAliases(final String channelId, final Alias alias) {
         try {
             final Set<Alias> aliases = new HashSet<>(Collections.singletonList(alias));
             final String aliasType = alias.getType();
@@ -51,7 +57,7 @@ public class AliasLoaderService {
         }
     }
 
-    private Set<Alias> loadAliasesByKey(final String key, final Alias alias) {
+    private Collection<Alias> loadAliasesByKey(final String key, final Alias alias) {
         if (!aliasLoaders.containsKey(key)) {
             log.info("no alias loaders found using key {}", key);
             return emptySet();

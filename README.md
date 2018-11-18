@@ -1,7 +1,6 @@
 # Todo
 
-1. Don't return plugin api type alias on API - plugin types need to be decoupled from front end API types
-2. Cucumber and unit tests
+1. Cucumber and unit tests
 
 ## Starting the service locally
 
@@ -32,18 +31,18 @@ make -B dockerRun run env=dev plugins=as3,bbos
 
 ## Example calls
 
-Successful examples
+Successful examples:
 
 ```
-curl -X POST -H "channel-id:BIDV" -H "content-type:application/json" http://localhost:8080/aliases -d '{ "type": "UKC_CARDHOLDER_ID", "value": "12345678" }'
-curl -X POST -H "channel-id:AS3" -H "content-type:application/json" http://localhost:8080/aliases -d '{ "type": "UKC_CARDHOLDER_ID", "value": "12345678" }'
-curl -X POST -H "channel-id:BBOS" -H "content-type:application/json" http://localhost:8080/aliases -d '{ "type": "UKC_CARDHOLDER_ID", "value": "12345678" }'
+curl -X POST -H "channel-id:BIDV" -H "content-type:application/json" http://localhost:8080/identities -d '{ "data": [ { "type": "identities", "attributes": { "aliases": [ { "type": "UKC_CARDHOLDER_ID", "value": "12345678" } ] } } ] }'
+curl -X POST -H "channel-id:AS3" -H "content-type:application/json" http://localhost:8080/identities -d '{ "data": [ { "type": "identities", "attributes": { "aliases": [ { "type": "UKC_CARDHOLDER_ID", "value": "12345678" } ] } } ] }'
+curl -X POST -H "channel-id:BBOS" -H "content-type:application/json" http://localhost:8080/identities -d '{ "data": [ { "type": "identities", "attributes": { "aliases": [ { "type": "UKC_CARDHOLDER_ID", "value": "12345678" } ] } } ] }'
 ```
 
-Example error
+Example error:
 
 ```
-curl -X POST -H "channel-id:BIDV" -H "content-type:application/json" http://localhost:8080/aliases -d '{ "type": "UKC_CARDHOLDER_ID", "value": "123456789" }'
+curl -X POST -H "channel-id:BIDV" -H "content-type:application/json" http://localhost:8080/identities -d '{ "data": [ { "type": "identities", "attributes": { "aliases": [ { "type": "UKC_CARDHOLDER_ID", "value": "123456789" } ] } } ] }'
 ```
 
 ## Limitations

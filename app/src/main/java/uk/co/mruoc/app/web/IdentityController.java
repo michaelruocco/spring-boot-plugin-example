@@ -6,39 +6,56 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uk.co.mruoc.api.IdentityAlias;
+import uk.co.mruoc.api.ErrorData;
 import uk.co.mruoc.api.IdentityRequestDocument;
-import uk.co.mruoc.api.IdentityResponseData;
+import uk.co.mruoc.api.IdentityData;
 import uk.co.mruoc.api.IdentityResponseDocument;
-import uk.co.mruoc.plugin.api.Alias;
-import uk.co.mruoc.app.service.AliasLoaderService;
+import uk.co.mruoc.api.JsonApiException;
+import uk.co.mruoc.app.Identity;
+import uk.co.mruoc.app.service.IdentityService;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping(path= "/identities")
 @Slf4j
 public class IdentityController {
 
-    private AliasLoaderService aliasLoaderService;
-    private AliasConverter aliasConverter;
+    private IdentityService identityService;
+    private IdentityConverter identityConverter;
 
-    public IdentityController(AliasLoaderService aliasLoaderService, AliasConverter aliasConverter) {
-        this.aliasLoaderService = aliasLoaderService;
-        this.aliasConverter = aliasConverter;
+    public IdentityController(IdentityService identityService, IdentityConverter identityConverter) {
+        this.identityService = identityService;
+        this.identityConverter = identityConverter;
     }
 
     @PostMapping
     public IdentityResponseDocument create(final @RequestHeader("channel-id") String channelId, final @RequestBody IdentityRequestDocument request) {
         log.info("received request {}", request);
-        IdentityAlias identityAlias = request.getAlias();
-        Alias alias = aliasConverter.toModelAlias(identityAlias);
-        Set<Alias> loadedAliases = aliasLoaderService.loadAliases(channelId, alias);
-        Set<IdentityAlias> responseAliases = aliasConverter.toApiAlias(loadedAliases);
-        IdentityResponseDocument response = new IdentityResponseDocument(new IdentityResponseData(UUID.randomUUID(), responseAliases));
+        final List<Identity> createdIdentities = new ArrayList<>();
+        final List<ErrorData> errors = new ArrayList<>();
+        for (IdentityData dataItem : request.getData()) {
+            try {
+                createdIdentities.add(create(channelId, dataItem));
+            } catch (JsonApiException e) {
+                log.error(e.getMessage(), e);
+                errors.add(e.getErrorData());
+            }
+        }
+        final Collection<IdentityData> responseData = identityConverter.toIdentityDataList(createdIdentities);
+        final IdentityResponseDocument response = new IdentityResponseDocument(responseData, errors);
         log.info("returning response {}", response);
         return response;
+    }
+
+    private Identity create(String channelId, IdentityData dataItem) {
+        final Identity identity = identityConverter.toModelIdentity(dataItem);
+        log.info("creating identity from {}", identity);
+        final Identity createdIdentity = identityService.create(channelId, identity);
+        log.info("created identity from {}", createdIdentity);
+        return createdIdentity;
     }
 
 }
