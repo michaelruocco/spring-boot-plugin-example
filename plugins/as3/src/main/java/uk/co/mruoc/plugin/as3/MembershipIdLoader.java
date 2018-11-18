@@ -48,7 +48,10 @@ public class MembershipIdLoader implements AliasLoader {
 
     private static Alias toMembershipId(final Alias bukCustomerId) {
         final String membershipId = toMembershipId(bukCustomerId.getValue());
-        return new Alias("MEMBERSHIP_ID", membershipId);
+        return Alias.builder()
+                .type("MEMBERSHIP_ID")
+                .value(membershipId)
+                .build();
     }
 
     private static String toMembershipId(final String bukCustomerId) {

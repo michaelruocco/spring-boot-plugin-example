@@ -44,7 +44,10 @@ public class TcvPartyIdLoader implements AliasLoader {
 
     private static Alias toTcvPartyId(final Alias ukcCardholderId) {
         final String tcvPartyId = toTcvPartyId(ukcCardholderId.getValue());
-        return new Alias("TCV_PARTY_ID", tcvPartyId);
+        return Alias.builder()
+                .type("TCV_PARTY_ID")
+                .value(tcvPartyId)
+                .build();
     }
 
     private static String toTcvPartyId(final String ukcCardholderId) {

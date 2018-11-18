@@ -50,7 +50,10 @@ public class BukCustomerIdLoader implements AliasLoader {
 
     private Alias toBukCustomerId(final Alias ukcCardholderId) {
         final String bukCustomerId = toBukCustomerId(ukcCardholderId.getValue());
-        return new Alias("BUK_CUSTOMER_ID", bukCustomerId);
+        return Alias.builder()
+                .type("BUK_CUSTOMER_ID")
+                .value(bukCustomerId)
+                .build();
     }
 
     private String toBukCustomerId(final String ukcCardholderId) {

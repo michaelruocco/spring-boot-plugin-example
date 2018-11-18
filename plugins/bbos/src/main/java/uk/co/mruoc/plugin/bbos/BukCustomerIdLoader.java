@@ -39,7 +39,10 @@ public class BukCustomerIdLoader implements AliasLoader {
 
     private static Alias toBukCustomerId(final Alias ukcCardholderId) {
         final String bukCustomerId = toBukCustomerId(ukcCardholderId.getValue());
-        return new Alias("BUK_CUSTOMER_ID", bukCustomerId);
+        return Alias.builder()
+                .type("BUK_CUSTOMER_ID")
+                .value(bukCustomerId)
+                .build();
     }
 
     private static String toBukCustomerId(final String ukcCardholderId) {
