@@ -18,6 +18,8 @@ import static java.util.Collections.singleton;
 @Component
 public class TcvPartyIdLoader implements AliasLoader {
 
+    private static final int TCV_PARTY_ID_LENGTH = 6;
+
     @Autowired
     private AS3ChannelIdProvider channelIdProvider;
 
@@ -51,10 +53,11 @@ public class TcvPartyIdLoader implements AliasLoader {
     }
 
     private static String toTcvPartyId(final String ukcCardholderId) {
-        if (ukcCardholderId.length() > 6) {
-            return ukcCardholderId.substring(ukcCardholderId.length() - 6, ukcCardholderId.length());
+        final int length = ukcCardholderId.length();
+        if (length > TCV_PARTY_ID_LENGTH) {
+            return ukcCardholderId.substring(length - TCV_PARTY_ID_LENGTH, length);
         }
-        return StringUtils.rightPad(ukcCardholderId, 6, '9');
+        return StringUtils.rightPad(ukcCardholderId, TCV_PARTY_ID_LENGTH, '9');
     }
 
     private void logTcvConfig() {
