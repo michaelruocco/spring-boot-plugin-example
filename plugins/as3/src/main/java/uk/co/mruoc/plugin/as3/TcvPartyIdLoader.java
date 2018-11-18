@@ -52,7 +52,7 @@ public class TcvPartyIdLoader implements AliasLoader {
 
     private static String toTcvPartyId(final String ukcCardholderId) {
         if (ukcCardholderId.length() > 6) {
-            return ukcCardholderId.substring(0, 6);
+            return ukcCardholderId.substring(ukcCardholderId.length() - 6, ukcCardholderId.length());
         }
         return StringUtils.rightPad(ukcCardholderId, 6, '9');
     }

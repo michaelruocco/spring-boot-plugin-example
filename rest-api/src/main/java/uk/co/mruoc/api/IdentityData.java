@@ -19,10 +19,6 @@ public class IdentityData {
     private final String type = "identities";
     private final IdentityAttributes attributes;
 
-    public IdentityData(Collection<IdentityAlias> aliases) {
-        this(null, new IdentityAttributes(aliases));
-    }
-
     public IdentityData(UUID id, Collection<IdentityAlias> aliases) {
         this.id = id;
         this.attributes = new IdentityAttributes(aliases);

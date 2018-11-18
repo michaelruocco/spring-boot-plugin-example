@@ -15,10 +15,6 @@ public class ErrorDocument {
     private final HttpStatus status;
     private final List<ErrorData> errors;
 
-    public ErrorDocument(final ErrorData... error) {
-        this(asList(error));
-    }
-
     public ErrorDocument(final HttpStatus status, final ErrorData... error) {
         this(status, asList(error));
     }

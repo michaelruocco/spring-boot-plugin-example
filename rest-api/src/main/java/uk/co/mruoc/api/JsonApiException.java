@@ -12,9 +12,4 @@ public class JsonApiException extends RuntimeException {
         this.errorData = errorData;
     }
 
-    public JsonApiException(final ErrorData errorData) {
-        super(errorData.getDetail());
-        this.errorData = errorData;
-    }
-
 }

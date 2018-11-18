@@ -5,7 +5,6 @@ import uk.co.mruoc.api.IdentityAlias;
 import uk.co.mruoc.plugin.api.Alias;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
