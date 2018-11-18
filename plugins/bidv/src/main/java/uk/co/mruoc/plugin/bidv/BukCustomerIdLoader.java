@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import uk.co.mruoc.plugin.api.Alias;
 import uk.co.mruoc.plugin.api.AliasLoader;
-import uk.co.mruoc.plugin.api.AliasLoaderException;
+import uk.co.mruoc.plugin.api.BidvPluginException;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,9 +56,8 @@ public class BukCustomerIdLoader implements AliasLoader {
         if (mappings.containsKey(ukcCardholderId)) {
             return mappings.get(ukcCardholderId);
         }
-        final String message = String.format("no BUK_CUSTOMER_ID found for UKC_CARDHOLDER_ID %s", ukcCardholderId);
-        log.info(message);
-        throw new AliasLoaderException(message);
+        final String message = buildAliasNotFoundMessage(ukcCardholderId);
+        throw new BidvPluginException(message);
     }
 
     private static Map<String, String> buildMappings() {
@@ -67,6 +66,10 @@ public class BukCustomerIdLoader implements AliasLoader {
         mappings.put("87654321", "2222222222");
         mappings.put("33333333", "8888888888");
         return Collections.unmodifiableMap(mappings);
+    }
+
+    private String buildAliasNotFoundMessage(final String ukcCardholderId) {
+        return String.format("no BUK_CUSTOMER_ID found for UKC_CARDHOLDER_ID %s", ukcCardholderId);
     }
 
 }

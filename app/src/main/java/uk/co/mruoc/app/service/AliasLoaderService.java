@@ -3,8 +3,11 @@ package uk.co.mruoc.app.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import uk.co.mruoc.api.ErrorData;
+import uk.co.mruoc.app.AliasNotFoundException;
 import uk.co.mruoc.plugin.api.Alias;
 import uk.co.mruoc.plugin.api.AliasLoader;
+import uk.co.mruoc.plugin.api.BidvPluginException;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,20 +28,27 @@ import static java.util.Collections.unmodifiableSet;
 public class AliasLoaderService {
 
     private final Map<String, Set<AliasLoader>> aliasLoaders = new HashMap<>();
+    private final AliasNotFoundErrorDataBuilder errorDataBuilder;
 
     @Autowired
-    public AliasLoaderService(final List<AliasLoader> aliasLoaders) {
+    public AliasLoaderService(final List<AliasLoader> aliasLoaders, final AliasNotFoundErrorDataBuilder errorDataBuilder) {
         populateMap(aliasLoaders);
+        this.errorDataBuilder = errorDataBuilder;
     }
 
     public Set<Alias> loadAliases(final String channelId, final Alias alias) {
-        final Set<Alias> aliases = new HashSet<>(Collections.singletonList(alias));
-        final String aliasType = alias.getType();
-        final String key = buildKey(channelId, aliasType);
-        log.info("finding alias loader with key {}", key);
-        aliases.addAll(loadAliasesByKey(key, alias));
-        log.info("returning aliases {}", toString(aliases));
-        return unmodifiableSet(aliases);
+        try {
+            final Set<Alias> aliases = new HashSet<>(Collections.singletonList(alias));
+            final String aliasType = alias.getType();
+            final String key = buildKey(channelId, aliasType);
+            log.info("finding alias loader with key {}", key);
+            aliases.addAll(loadAliasesByKey(key, alias));
+            log.info("returning aliases {}", toString(aliases));
+            return unmodifiableSet(aliases);
+        } catch (BidvPluginException e) {
+            final ErrorData errorData = errorDataBuilder.build(channelId, alias);
+            throw new AliasNotFoundException(errorData, e);
+        }
     }
 
     private Set<Alias> loadAliasesByKey(final String key, final Alias alias) {

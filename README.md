@@ -4,6 +4,7 @@
 2. Don't return plugin api type alias on API - plugin types need to be decoupled from front end API types
 3. Handle errors correctly, copy example for returning custom error responses
 4. Change endpoints to show environment properties more obviously than just in logging
+5. Cucumber and unit tests
 
 ## Starting the service locally
 
@@ -42,7 +43,7 @@ curl -X POST -H "channel-id:BBOS" -H "content-type:application/json" http://loca
 
 ## Limitations
 
-* Plugin loader doesn't support beans with arguments, which means constructor autowiring
+* Plugin loader doesn't support beans with constructor arguments, which means constructor autowiring
 cannot be used in plugins
 * Certificates would need to be configured in main service, plugin builders would need to request
 that they are added to application keystore

@@ -3,23 +3,22 @@ package uk.co.mruoc.app.web;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import uk.co.mruoc.plugin.api.AliasLoaderException;
+import uk.co.mruoc.api.HttpResponse;
+import uk.co.mruoc.api.JsonApiException;
 import uk.co.mruoc.api.ErrorData;
 import uk.co.mruoc.api.ErrorDocument;
 
-import java.util.UUID;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
 @Slf4j
 public class ErrorHandler {
 
-    @ExceptionHandler(AliasLoaderException.class)
-    public ErrorDocument handle(AliasLoaderException exception) {
-        ErrorData data = ErrorData.builder()
-                .id(UUID.randomUUID())
-                .detail(exception.getMessage())
-                .build();
-        return new ErrorDocument(data);
+    @ExceptionHandler(JsonApiException.class)
+    public HttpResponse handle(JsonApiException exception) {
+        log.error(exception.getMessage(), exception);
+        ErrorData errorData = exception.getErrorData();
+        return HttpResponse.buildWithError(new ErrorDocument(NOT_FOUND, errorData));
     }
 
 }
