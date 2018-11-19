@@ -1,6 +1,7 @@
 # Todo
 
-1. Cucumber and unit tests
+1. Try to set up use of MongoDB on Heroku
+2. Cucumber and unit tests
 
 ## Starting the service locally
 
