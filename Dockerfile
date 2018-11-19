@@ -1,6 +1,7 @@
 FROM openjdk:8-jre-alpine
 
-USER 10001
+RUN adduser -D appuser
+USER appuser
 
 COPY app/build/libs/app-*.jar /opt/app.jar
 
