@@ -4,9 +4,8 @@ RUN adduser -D appuser
 USER appuser
 
 COPY app/build/libs/app-*.jar /opt/app.jar
-
-VOLUME opt/plugins
-VOLUME opt/plugin-config
+COPY build/plugins opt/plugins
+COPY build/plugin-config opt/plugin-config
 
 EXPOSE 8080
 
